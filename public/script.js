@@ -31,7 +31,9 @@ navigator.mediaDevices.getUserMedia({
       text.val('')
     }
   });
-  socket.on("createMessage", message => {
+ 
+
+  socket.on("createMessage", (message) => {
     $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);
     scrollToBottom()
   })
@@ -39,6 +41,7 @@ navigator.mediaDevices.getUserMedia({
 
 socket.on('user-disconnected', userId => {
   if (peers[userId]) peers[userId].close()
+
 })
 
 myPeer.on('open', id => {
@@ -86,7 +89,6 @@ const muteUnmute = () => {
 }
 
 const playStop = () => {
-  console.log('object')
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
@@ -127,4 +129,10 @@ const setPlayVideo = () => {
     <span>Play Video</span>
   `
   document.querySelector('.main__video_button').innerHTML = html;
+}
+
+const leaveMeting = () =>{
+  if (confirm("Leave Meting?")) {
+    close();
+  }   
 }
